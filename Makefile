@@ -24,6 +24,13 @@ util.o: util.cpp util.h
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c util.cpp
 user.o: user.cpp user.h
 	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c user.cpp
+book.o: book.cpp book.h
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c book.cpp
+clothing.o: clothing.cpp clothing.h
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c clothing.cpp
+movie.o: movie.cpp movie.h
+	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c movie.cpp
+
 
 
 

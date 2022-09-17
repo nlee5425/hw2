@@ -15,16 +15,27 @@ std::string convToLower(std::string src)
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
-
-
-
-
-
-
-
-
-
-
+    string temp;
+    set<string>search;
+    for ( unsigned int i = 0 ; i < rawWords.size() ;  ++i) {
+        int character = rawWords[i];
+        if ( character >= 32 && character <= 47 ) { //check if character is a sapce or punctuation
+            if (temp.size() < 2) {
+                temp = "";
+                continue;
+            }
+            else{
+                search.insert(temp); //insert into the set
+                temp = ""; //reset string
+            }
+        }
+        else {
+            temp += rawWords[i];
+        }
+        //add temp word to data structure
+    }
+    return search;
+    //displaystring is 
 }
 
 /**************************************************
