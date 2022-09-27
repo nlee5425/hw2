@@ -36,6 +36,9 @@ std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
 	typename std::set<T>::iterator it2;
 	for (  it2 = s2.begin() ; it2 != s2.end() ; ++it2) {
 		if ( unions.find(*it2) != unions.end()) { //check if our s2 value is in unions
+			continue;
+		}
+		else {
 			unions.insert(*it2);
 		}
 	}

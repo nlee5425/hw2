@@ -25,7 +25,7 @@ std::set<std::string> parseStringToWords(string rawWords)
                 continue;
             }
             else{
-                search.insert(temp); //insert into the set
+                search.insert(convToLower(temp)); //insert into the set
                 temp = ""; //reset string
             }
         }

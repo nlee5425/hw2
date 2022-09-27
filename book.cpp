@@ -4,7 +4,7 @@
 #include <string>
 #include "util.h"
 #include <set>
-
+#include <iomanip>
 using namespace std;
 //add code here 
 //reference to product.cpp
@@ -25,30 +25,37 @@ Book::~Book() //book destructor
 
 }
 
-std::set<std::string> Book::keywords() const
+set<string> Book::keywords() const
 {
-	std::set<std::string>keyword; // creates a set to store the keywords of the specific product for book
-	std::set<std::string>keyword_isbn;
+	set<string>keyword; // creates a set to store the keywords of the specific product for book
+	set<string>keyword_name;
 	keyword = parseStringToWords(authorname);
-	keyword_isbn = parseStringToWords(isbnnum);
-	keyword.insert(keyword_isbn.begin() , keyword_isbn.end());//testif this works
+	keyword_name = parseStringToWords(name_);
+	keyword.insert(keyword_name.begin() , keyword_name.end());//testif this works
+	keyword.insert(isbnnum);
 	return keyword;
 }
 
 std::string Book::displayString() const
-{
-		std::string displaybook;
-		displaybook = name_ + "\n Author: " + authorname + " ISBN: " + isbnnum +"\n" + std::to_string(price_) + " " 
-								+ std::to_string(qty_) + "left."; 
-		return displaybook;
+{	
+	stringstream ss;//creating string stream to set decimal places to hundreths
+	ss << fixed << setprecision(2) << price_;
+	string output = ss.str();
+	string displaybook;
+	displaybook = name_ + "\nAuthor: " + authorname + " ISBN: " + isbnnum +"\n" + output + " " 
+								+ to_string(qty_) + " left."; 
+	return displaybook;
 
 }
 
 void Book::dump(std::ostream& os) const
-{
-	std::string display = "Book \n" + name_ + "\n" + std::to_string(price_) + "\n" + std::to_string(qty_) + 
-												"\n" + authorname + "\n" + isbnnum + "\n";
-	os << display;
+{ 
+	stringstream ss;//creating string stream to set decimal places to hundreths
+	ss << fixed << setprecision(2) << price_;
+	string output = ss.str();
+	string display = "Book\n" + name_ + "\n" + output + "\n" + to_string(qty_) + 
+												"\n" + authorname + "\n" + isbnnum;
+	os << display << endl;
 }
 
 

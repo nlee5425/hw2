@@ -4,6 +4,7 @@
 #include "util.h"
 #include <string>
 #include <set>
+#include <iomanip>
 
 using namespace std;
 //add code here 
@@ -24,27 +25,34 @@ Movie::~Movie() //book destructor
 
 }
 
-std::set<std::string> Movie::keywords() const 
+set<string> Movie::keywords() const 
 {
-	std::set<std::string>keyword; // creates a set to store the keywords of the specific product for book
-	std::set<std::string>keyword_genre;
-	keyword = parseStringToWords(movierating);
+	set<string>keyword_name; // creates a set to store the keywords of the specific product for book
+	set<string>keyword_genre;
+	keyword_name = parseStringToWords(name_);
 	keyword_genre = parseStringToWords(moviegenre);
-	keyword.insert(keyword_genre.begin() , keyword_genre.end());//testif this works
-	return keyword;
+	keyword_name.insert(keyword_genre.begin() , keyword_genre.end());//testif this works
+	return keyword_name;
 }
 
-std::string Movie::displayString() const
+string Movie::displayString() const
 {
-	std::string displaymovie;
-	displaymovie = name_ + "\n Rating: " + movierating + " Genre: " +moviegenre +"\n" + std::to_string(price_) + " " 
-								+ std::to_string(qty_) + "left."; 
+	stringstream ss; //creating string stream to set decimal places to hundreths
+	ss << fixed << setprecision(2) << price_;
+	string output = ss.str();
+	string displaymovie;
+	displaymovie = name_ + "\nRating: " + movierating + " Genre: " +moviegenre +"\n" + output + " " 
+								+ to_string(qty_) + " left."; 
 	return displaymovie;
 }
 
 void Movie::dump(std::ostream& os) const
 {
-	std::string display = displayString();
+	stringstream ss;//creating string stream to set decimal places to hundreths
+	ss << fixed << setprecision(2) << price_;
+	string output = ss.str();
+	string display = "Movie\n" + name_ + "\n" + output + "\n" + to_string(qty_) + 
+												"\n" + moviegenre + "\n" + movierating;
 	os << display << endl;
 
 }

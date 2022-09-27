@@ -4,6 +4,7 @@
 #include "util.h"
 #include <string>
 #include <set>
+#include <iomanip>
 
 using namespace std;
 //add code here 
@@ -24,29 +25,35 @@ Clothing::~Clothing() //book destructor
 
 }
 
-std::set<std::string> Clothing::keywords() const 
+set<string> Clothing::keywords() const 
 {
-	std::set<std::string>keyword; // creates a set to store the keywords of the specific product for book
-	std::set<std::string>keyword_brand;
-	keyword = parseStringToWords(clothingsize);
+	set<string>keyword_name; // creates a set to store the keywords of the specific product for book
+	set<string>keyword_brand;
+	keyword_name = parseStringToWords(name_);
 	keyword_brand = parseStringToWords(clothingbrand);
-	keyword.insert(keyword_brand.begin() , keyword_brand.end());//testif this works
-	return keyword;
+	keyword_name.insert(keyword_brand.begin() , keyword_brand.end());//testif this works
+	return keyword_name;
 }
 
-std::string Clothing::displayString() const
+string Clothing::displayString() const
 {
-	std::string displayclothing;
-	displayclothing = name_ + "\n Size: " + clothingsize + " Brand: " + clothingbrand +"\n" + std::to_string(price_) + " " 
-								+ std::to_string(qty_) + "left."; 
+	stringstream ss;//creating string stream to set decimal places to hundreths
+	ss << fixed << setprecision(2) << price_;
+	string output = ss.str();
+	string displayclothing;
+	displayclothing = name_ + "\nSize: " + clothingsize + " Brand: " + clothingbrand +"\n" + output + " " 
+								+ to_string(qty_) + " left."; 
 	return displayclothing;
 }
 
 void Clothing::dump(std::ostream& os) const
 {
-	std::string display = "Clothing \n" + name_ + "\n" + std::to_string(price_) + "\n" + std::to_string(qty_) + 
-												"\n" + clothingsize + "\n" + clothingbrand + "\n";
-	os << display;
+	stringstream ss;//creating string stream to set decimal places to hundreths
+	ss << fixed << setprecision(2) << price_;
+	string output = ss.str();
+	string display = "Clothing\n" + name_ + "\n" + output + "\n" + to_string(qty_) + 
+												"\n" + clothingsize + "\n" + clothingbrand;
+	os << display << endl;
 
 }
 
