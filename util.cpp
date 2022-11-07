@@ -34,6 +34,9 @@ std::set<std::string> parseStringToWords(string rawWords)
         }
         //add temp word to data structure
     }
+    if (temp.size() > 2 ) {
+        search.insert(convToLower(temp));
+    }
     return search;
     //displaystring is 
 }

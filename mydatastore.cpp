@@ -121,7 +121,7 @@ void MyDataStore::viewcart(string username) { //access user from username map
 		}
 	}
 	else{
-		cout << "Please enter a valid username." << endl;
+		cout << "Invalid username." << endl;
 	}
 }
 
@@ -134,22 +134,22 @@ void MyDataStore::buycart(string username) {
 	//check if the item is in stock and if the user has enough credit to purchase the item
 	//if user does not have enough money or item is not in stock, move to next item
 	if (cart.find(username) != cart.end()) { //user has cart
-		vector<Product*> uProducts = cart[username];
-		for ( unsigned int i = 0 ; i < (cart[username]).size() ; ++i) {
-			double totprice = (uProducts[i])->getPrice(); //price of item
-			int curqty = (uProducts[i])->getQty(); //quantity left of item
+		vector<Product*> uProducts;
+		for ( std::vector<Product *>::iterator it = cart[username].begin() ; it != cart[username].end() ; ++it) {
+			double totprice = (*it)->getPrice(); //price of item
+			int curqty = (*it)->getQty(); //quantity left of item
 			double balanceleft = (user[username])->getBalance();
-			if ( curqty >= 1 && balanceleft >= totprice) { //if there are products left and user has money to buy
-				(uProducts[i])->subtractQty(1); //minus quantity of products
+			if ( curqty > 0 && balanceleft >= totprice) { //if there are products left and user has money to buy
+				(*it)->subtractQty(1); //minus quantity of products
 				(user[username])->deductAmount(totprice); //deduct price of item from user balance
-				uProducts.erase(uProducts.begin()); //remove item from cart
 			}
 			else { //if nothing left in stock, move to next product
+				uProducts.push_back(*it);
 				continue;
 			}
 		}
 		cart[username] = uProducts;
-		cout << "Successfully bought cart." << endl;
+		//cout << "Successfully bought cart." << endl;
 	}
 	else{
 		cout << "Invalid username" << endl;
@@ -170,7 +170,7 @@ void MyDataStore::addcart(string username, Product* p) {
 			cout << "Product is out of stock." << endl;
 		}
 	}
-	else{ //user doesn't have cart, make the cart for them
+	else if (user.find(username) != user.end() ) { //user doesn't have cart, make the cart for them
 		if (left != 0) {
 			std::vector<Product*> products;
 			products.push_back(p);
@@ -180,6 +180,9 @@ void MyDataStore::addcart(string username, Product* p) {
 		else {
 			cout << "Product is out of stock." << endl;
 		}	
+	}
+	else{ 
+		cout << "Invalid request" << endl;
 	}
 	
 }

@@ -120,8 +120,12 @@ int main(int argc, char* argv[])
 				string usersname;
 				int searchnum;
 				ss >> usersname;
-				ss >> searchnum;
-				ds.addcart(usersname, hits[searchnum - 1]);
+                if ( ss >> searchnum) {
+				    ds.addcart(usersname, hits[searchnum - 1]);
+                }
+                else {
+                    cout << "Invalid request" << endl;
+                }       
       }
       else {
         cout << "Unknown command" << endl;

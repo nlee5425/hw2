@@ -51,7 +51,7 @@ void Clothing::dump(std::ostream& os) const
 	stringstream ss;//creating string stream to set decimal places to hundreths
 	ss << fixed << setprecision(2) << price_;
 	string output = ss.str();
-	string display = "Clothing\n" + name_ + "\n" + output + "\n" + to_string(qty_) + 
+	string display = "clothing\n" + name_ + "\n" + output + "\n" + to_string(qty_) + 
 												"\n" + clothingsize + "\n" + clothingbrand;
 	os << display << endl;
 

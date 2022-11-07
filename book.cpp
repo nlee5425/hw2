@@ -53,8 +53,8 @@ void Book::dump(std::ostream& os) const
 	stringstream ss;//creating string stream to set decimal places to hundreths
 	ss << fixed << setprecision(2) << price_;
 	string output = ss.str();
-	string display = "Book\n" + name_ + "\n" + output + "\n" + to_string(qty_) + 
-												"\n" + authorname + "\n" + isbnnum;
+	string display = "book\n" + name_ + "\n" + output + "\n" + to_string(qty_) + "\n" + isbnnum +
+												"\n" + authorname;
 	os << display << endl;
 }
 

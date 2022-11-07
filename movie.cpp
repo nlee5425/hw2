@@ -31,8 +31,9 @@ set<string> Movie::keywords() const
 	set<string>keyword_genre;
 	keyword_name = parseStringToWords(name_);
 	keyword_genre = parseStringToWords(moviegenre);
-	keyword_name.insert(keyword_genre.begin() , keyword_genre.end());//testif this works
-	return keyword_name;
+	set<string>movieunion;
+	movieunion = setUnion(keyword_name , keyword_genre);
+	return movieunion;
 }
 
 string Movie::displayString() const
@@ -41,7 +42,7 @@ string Movie::displayString() const
 	ss << fixed << setprecision(2) << price_;
 	string output = ss.str();
 	string displaymovie;
-	displaymovie = name_ + "\nRating: " + movierating + " Genre: " +moviegenre +"\n" + output + " " 
+	displaymovie = name_  + "\nGenre: " + moviegenre + " Rating: " + movierating +"\n" + output + " " 
 								+ to_string(qty_) + " left."; 
 	return displaymovie;
 }
@@ -51,7 +52,7 @@ void Movie::dump(std::ostream& os) const
 	stringstream ss;//creating string stream to set decimal places to hundreths
 	ss << fixed << setprecision(2) << price_;
 	string output = ss.str();
-	string display = "Movie\n" + name_ + "\n" + output + "\n" + to_string(qty_) + 
+	string display = "movie\n" + name_ + "\n" + output + "\n" + to_string(qty_) + 
 												"\n" + moviegenre + "\n" + movierating;
 	os << display << endl;
 
